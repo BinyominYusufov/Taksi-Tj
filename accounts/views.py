@@ -1,3 +1,54 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,HttpResponse
+from .models import CustomUser
+from django.contrib.auth import login,logout,authenticate
 
-# Create your views here.
+
+def register_view(request):
+    if request.method == "GET":
+        return render(request,'register.html')
+    elif request.method == "POST":
+        username = request.POST.get('username',None)
+        email = request.POST.get('email',None)
+        password = request.POST.get('password',None)
+        confirm = request.POST.get('confirm',None)
+
+        if not username or not email or not password:
+            return render(request,'register.html',context={'username':username,"email":email,'error':'All fields are required!'})
+        
+        if password != confirm:
+            return render(request,'register.html',context={'username':username,'error':"Passwords don't match!"})
+        
+        CustomUser.objects.create_user(username=username,email=email,password=password)
+
+
+        return HttpResponse('Logined')
+
+
+
+def login_view(request):
+    if request.method == "GET":
+        return render(request,'login.html')
+    elif request.method == "POST":
+        username = request.POST.get('username',None)
+        password = request.POST.get('password',None)
+
+        if not username or not password:
+            return render(request,'register.html',context={'username':username,'error':'All fields are required!'})
+        
+        user = authenticate(username=username,password=password)
+
+        if user:
+            login(user=user)
+            return redirect("/")
+        return render(request,'login.html',context={
+                    'username':username,
+                    'error': "Such user does not exist!"
+        })
+    
+
+def logout_view(request):
+    try:
+        logout(request)
+        return redirect("login")
+    except Exception as err:
+        return HttpResponse(str(err))
