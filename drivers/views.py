@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import *
 
-# Create your views here.
+
+def driver_list(request):
+    drivers = Drivers.objects.all()
+    return render(request, 'drivers/driver_list.html', {'drivers': drivers})
