@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block main %}
+
+<div class="container my-5">
+    <h3>Ride Details</h3>
+
+    <ul class="list-group mt-4">
+        <li class="list-group-item"><strong>ID:</strong> {{ ride.id }}</li>
+        <li class="list-group-item"><strong>User ID:</strong> {{ ride.user_id }}</li>
+        <li class="list-group-item"><strong>Driver ID:</strong> {{ ride.driver_id }}</li>
+        <li class="list-group-item"><strong>Start:</strong> {{ ride.start_location }}</li>
+        <li class="list-group-item"><strong>End:</strong> {{ ride.end_location }}</li>
+        <li class="list-group-item"><strong>Distance (km):</strong> {{ ride.distance_km }}</li>
+        <li class="list-group-item"><strong>Price:</strong> {{ ride.price }}</li>
+        <li class="list-group-item"><strong>Status:</strong> {{ ride.status }}</li>
+        <li class="list-group-item"><strong>Created:</strong> {{ ride.created_at }}</li>
+        <li class="list-group-item"><strong>Updated:</strong> {{ ride.updated_at }}</li>
+    </ul>
+
+    <div class="mt-4">
+        <a href="{% url 'ride_update' ride.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'ride_delete' ride.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'ride_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+{% endblock %}
