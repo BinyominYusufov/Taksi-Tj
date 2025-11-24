@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}
+Driver Details
+{% endblock title %}
+{% block main %}
+<div class="container mt-5">
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+        <div class="d-flex align-items-center mb-4">
+            <div class="driver-avatar bg-secondary bg-opacity-25 rounded-circle me-3 d-flex justify-content-center align-items-center"
+                 style="width:80px; height:80px; font-size:32px; font-weight:600;">
+                 {{ driver.name|first }}
+            </div>
+            <div>
+                <h2 class="fw-bold mb-0">{{ driver.name }}</h2>
+                <small class="text-muted">{{ driver.car_model }}</small>
+            </div>
+        </div>
+        <ul class="list-unstyled mb-4">
+            <li><strong>📞 Phone:</strong> {{ driver.phone_number }}</li>
+            <li><strong>🚘 Car Number:</strong> {{ driver.car_number }}</li>
+            <li><strong>⭐ Rating:</strong> {{ driver.rating }}</li>
+            <li>
+                <strong>🟢 Status:</strong>
+                {% if driver.status %}
+                    <span class="badge bg-success">Online</span>
+                {% else %}
+                    <span class="badge bg-secondary">Offline</span>
+                {% endif %}
+            </li>
+            <li><strong>📅 Joined:</strong> {{ driver.created_at }}</li>
+            <li><strong>📝 Reviews:</strong>
+                <ul>
+                    {% for review in driver.reviews.all %}
+                        <li>"{{ review.comment }}" - {{ review.rating }}⭐</li>
+                    {% empty %}
+                        <li>No reviews yet.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        <a href="{% url 'driver_list'%}" class="btn btn-primary w-100 rounded-3">
+            Back
+        </a>
+    </div>
+</div>
+{% endblock main %}

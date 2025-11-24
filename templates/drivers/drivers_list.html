@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Drivers{% endblock %}
+
+{% block main %}
+<h1 class="mb-4 text-center fw-bold">🚖 Drivers</h1>
+
+<div class="container">
+    <div class="row g-4">
+
+        {% for driver in drivers %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4">
+                
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="driver-avatar bg-secondary bg-opacity-25 rounded-circle me-3 d-flex justify-content-center align-items-center"
+                             style="width:60px; height:60px; font-size:24px; font-weight:600;">
+                             {{ driver.name|first }}
+                        </div>
+                        <div>
+                            <h5 class="card-title fw-bold mb-0">{{ driver.name }}</h5>
+                            <small class="text-muted">{{ driver.car_model }}</small>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled mb-3">
+                        <li><strong>📞 Phone:</strong> {{ driver.phone_number }}</li>
+                        <li><strong>🚘 Car Number:</strong> {{ driver.car_number }}</li>
+                        <li><strong>⭐ Rating:</strong> {{ driver.rating }}</li>
+                        <li>
+                            <strong>🟢 Status:</strong>
+                            {% if driver.status %}
+                                <span class="badge bg-success">Online</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Offline</span>
+                            {% endif %}
+                        </li>
+                     
+                    </ul>
+
+                    <a href="{% url 'driver_detail' driver.id %}" class="btn btn-primary w-100 rounded-3">
+                        View Profile
+                    </a>
+                    <a href="{% url 'driver_update' driver.id %}" class="btn btn-outline-primary w-100 rounded-3 mt-2">
+                        Edit Driver
+                    </a>
+                    <a href="{% url 'driver_delete' driver.pk %}" class="btn btn-outline-danger w-100 rounded-3 mt-2">
+                        Delete Driver
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<style>
+.driver-avatar {
+    background: linear-gradient(135deg, #4f8bfd, #3e61f0);
+    color: white;
+}
+.card:hover {
+    transform: translateY(-4px);
+    transition: 0.2s;
+}
+</style>
+
+{% endblock %}
