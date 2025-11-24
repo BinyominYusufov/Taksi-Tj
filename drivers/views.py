@@ -7,6 +7,26 @@ def driver_list(request):
     drivers = Drivers.objects.all()
     return render(request, 'drivers/drivers_list.html', {'drivers': drivers})
 
+def driver_create(request):
+    if request.method == 'GET':
+        return render(request, 'drivers/driver_create.html')
+    elif request.method == 'POST':
+        name = request.POST.get('name')
+        phone_number = request.POST.get('phone_number')
+        car_model = request.POST.get('car_model')
+        car_number = request.POST.get('car_number')
+        rating = request.POST.get('rating')
+        status = request.POST.get('status') == 'on'
+        driver = Drivers.objects.create(
+            name=name,
+            phone_number=phone_number,
+            car_model=car_model,
+            car_number=car_number,
+            rating=rating,
+            status=status
+        )
+        return redirect('driver_detail', driver_id=driver.id)
+
 def driver_detail(request, driver_id):
     driver = Drivers.objects.get(id=driver_id)
     if not driver:
@@ -27,7 +47,7 @@ def driver_update(request, driver_id):
         driver.rating = request.POST.get('rating')
         driver.status = request.POST.get('status') == 'on'
         driver.save()
-        return redirect('driver_detail', driver_id=driver.id) 
+        return redirect('driver_detail', driver_id=driver.id)
     
 
     
