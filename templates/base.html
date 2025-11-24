@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>{% block title %}TaxiPro{% endblock %}</title>
     
     <!-- Bootstrap CSS -->
@@ -54,9 +54,12 @@
             mobileNav.classList.toggle('hidden');
         }
     </script>
+
+    <title>{% block title %}TaxiPro{% endblock %}</title>
 </head>
 
 <body class="gradient-bg text-gray-100 min-h-screen flex flex-col font-sans">
+
 
 <!-- ================= HEADER ================= -->
 <header class="sticky top-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
@@ -160,10 +163,27 @@
                     {% endif %}
                 </div>
             </div>
+
+<!-- HEADER -->
+<header class="main-header fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <div class="brand-logo">🚖 TaxiPro</div>
+
+        <nav class="d-none d-md-flex gap-4">
+            <a href="/">Home</a>
+            <a href="/drivers/">Drivers</a>
+            <a href="/rides/">Rides</a>
+            <a href="/drivers/create/">Add Driver</a>
+        </nav>
+
+        <div class="d-flex gap-3">
+            <a href="{% url 'login' %}" class="btn btn-outline-light btn-auth">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-auth">Sign Up</a>
         </div>
     </div>
 </header>
-<!-- ================= END HEADER ================= -->
+
 
 <!-- Spacer for fixed header -->
 <div class="h-6"></div>
@@ -249,6 +269,43 @@
                         <span>New York, USA</span>
                     </p>
                 </div>
+
+<div style="height: 90px;"></div>
+
+<!-- MAIN CONTENT -->
+{% block main %}
+{% endblock %}
+
+<!-- FOOTER -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <h5>TaxiPro</h5>
+                <p>Premium taxi service. Fast, safe and ultra-modern.</p>
+                <div class="social-icons mt-3">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Quick Links</h5>
+                <a href="/">Home</a>
+                <a href="/drivers/">Drivers</a>
+                <a href="/rides/">Rides</a>
+                <a href="/pricing/">Pricing</a>
+                <a href="/support/">Support</a>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Contacts</h5>
+                <p><i class="bi bi-telephone"></i> +1 800 123 45 67</p>
+                <p><i class="bi bi-envelope"></i> support@taxipro.com</p>
+                <p><i class="bi bi-geo-alt"></i> New York, USA</p>
+
             </div>
 
         </div>
@@ -264,6 +321,12 @@
     </div>
 </footer>
 <!-- ================= END FOOTER ================= -->
+
+<script>
+    window.addEventListener("scroll", () => {
+        document.querySelector(".main-header").classList.toggle("scrolled", window.scrollY > 10);
+    });
+</script>
 
 </body>
 </html>
