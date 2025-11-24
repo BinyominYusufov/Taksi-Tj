@@ -1,10 +1,12 @@
 from django.db import models
+from drivers.models import Drivers
+from accounts.models import CustomUser as User
 
 # Create your models here. rides 
 
 class Rides(models.Model):
-    user_id = models.IntegerField()
-    driver_id = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    driver = models.ForeignKey(Drivers, on_delete=models.SET_NULL, null=True)
     start_location = models.CharField(max_length=255)
     end_location = models.CharField(max_length=255)
     distance_km = models.FloatField()
