@@ -49,5 +49,16 @@ def driver_update(request, driver_id):
         driver.save()
         return redirect('driver_detail', driver_id=driver.id)
     
+def driver_delete_view(request, driver_id):
+    driver = Drivers.objects.filter(id=driver_id).first()
+    if not driver:
+        return HttpResponse(f"Driver with id {driver_id} not found")
+    if request.method == "GET":
+        return render(request, "drivers/driver_delete.html", context={"driver":driver})
+    elif request.method == "POST":
+        driver.delete()
+        return redirect("driver_list")
+
+    
 
     
