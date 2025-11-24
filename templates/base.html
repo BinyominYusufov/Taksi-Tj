@@ -3,373 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title>{% block title %}
-      
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-
+    
     <title>{% block title %}TaxiPro{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind (script) -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm`/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-
+<script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* HEADER */
-        .main-header {
-            background: #111;
-            padding: 15px 0;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .main-header a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .main-header a:hover {
+        
+        body {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .mobile-nav.active {
+            animation: slideDown 0.3s ease-out;
+        }
 
-            color: #0d6efd;
-        }
-        .brand-logo {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        /* FOOTER */
-        .main-footer {
-            background: #000;
-            color: #bbb;
-            padding: 40px 0;
-            margin-top: 60px;
-        }
-        .main-footer h5 {
-            color: #fff;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .main-footer a {
-            color: #bbb;
-            text-decoration: none;
-            display: block;
-            margin: 5px 0;
-            transition: 0.2s;
-        }
-        .main-footer a:hover {
-            color: #fff;
-        }
-        .social-icons a {
-            font-size: 22px;
-            margin-right: 15px;
-            color: #bbb;
-        }
-        .social-icons a:hover {
-            color: #0d6efd;
-        }
-        .footer-bottom {
-            border-top: 1px solid #333;
-            margin-top: 30px;
-            padding-top: 15px;
-            text-align: center;
-            color: #777;
+        /* Custom gradient background */
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a, #111, #0d0d0d);
         }
     </style>
-
-
-   <style>
-
-    /* GLOBAL DESIGN */
-    body {
-        background: linear-gradient(135deg, #0a0a0a, #111, #0d0d0d);
-        color: #f0f0f0;
-        font-family: "Inter", "Segoe UI", sans-serif;
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    /* GLASS EFFECT */
-    .glass {
-        background: rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(20px);
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        transition: 0.3s;
-    }
-
-    .glass:hover {
-        border-color: rgba(0, 123, 255, 0.4);
-        box-shadow: 0 0 25px rgba(13, 110, 253, 0.22);
-        transform: translateY(-3px);
-    }
-
-    /* HEADER */
-    .main-header {
-        background: rgba(0,0,0,0.8);
-        backdrop-filter: blur(20px);
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .main-header a {
-        color: #d0d0d0;
-        font-weight: 500;
-        transition: 0.25s ease;
-        letter-spacing: 0.2px;
-    }
-
-    .main-header a:hover {
-        color: #0d6efd;
-        text-shadow: 0 0 8px rgba(13, 110, 253, 0.45);
-    }
-
-    .brand-logo {
-        font-size: 32px;
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: 1.5px;
-        text-shadow: 0 0 8px rgba(255,255,255,0.4);
-        transition: 0.3s;
-    }
-
-    .brand-logo:hover {
-        transform: scale(1.08);
-    }
-
-    /* HEADER BUTTONS */
-    .btn-auth {
-        padding: 8px 20px;
-        font-weight: 600;
-        border-radius: 50px;
-        transition: 0.3s ease;
-        letter-spacing: 0.5px;
-    }
-
-    .btn-auth:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 14px rgba(13,110,253,0.45);
-    }
-
-    /* FOOTER */
-    .main-footer {
-        background: #050505;
-        padding: 70px 0 35px;
-        color: #bbb;
-    }
-
-    .main-footer h5 {
-        color: #fff;
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        text-shadow: 0 0 10px rgba(255,255,255,0.15);
-    }
-
-    .main-footer a {
-        color: #aaa;
-        font-size: 16px;
-        margin: 6px 0;
-        transition: 0.25s ease;
-    }
-
-    .main-footer a:hover {
-        color: #0d6efd;
-        margin-left: 8px;
-        text-shadow: 0 0 6px rgba(13,110,253,0.55);
-    }
-
-    .social-icons a {
-        font-size: 25px;
-        margin-right: 16px;
-        transition: 0.3s ease;
-        color: #aaa;
-    }
-
-    .social-icons a:hover {
-        color: #0d6efd;
-        transform: scale(1.22);
-        text-shadow: 0 0 12px rgba(13,110,253,0.55);
-    }
-
-    .footer-bottom {
-        border-top: 1px solid #222;
-        padding-top: 18px;
-        margin-top: 45px;
-        text-align: center;
-        color: #777;
-        font-size: 14px;
-    }
-
-    /* ADVANCED CARDS */
-    .card-dark {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 20px;
-        backdrop-filter: blur(16px);
-        padding: 18px;
-        transition: 0.35s;
-    }
-
-    .card-dark:hover {
-        border-color: rgba(13,110,253,0.65);
-        box-shadow: 0 0 25px rgba(13, 110, 253, 0.35);
-        transform: translateY(-6px);
-    }
-
-    /* TABLE SUPER-DESIGN */
-    table.table {
-        background: rgba(255,255,255,0.04);
-        border-radius: 14px;
-        overflow: hidden;
-        color: #fff;
-        backdrop-filter: blur(10px);
-    }
-
-    table thead {
-        background: rgba(255,255,255,0.15);
-        font-size: 16px;
-    }
-
-    table tbody tr {
-        transition: 0.25s ease;
-    }
-
-    table tbody tr:hover {
-        background: rgba(13,110,253,0.28);
-        cursor: pointer;
-    }
-
-    table td, table th {
-        padding: 14px;
-        vertical-align: middle;
-    }
-
-    /* FORMS */
-    .form-control {
-        background: rgba(255,255,255,0.06);
-        color: #fff;
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 12px;
-        border-radius: 10px;
-    }
-
-    .form-control:focus {
-        background: rgba(255,255,255,0.12);
-        box-shadow: 0 0 10px rgba(13,110,253,0.5);
-        border-color: #0d6efd;
-    }
-
-    /* BUTTONS */
-    .btn-primary {
-        background: linear-gradient(45deg, #0d6efd, #1a75ff);
-        border: none;
-        font-weight: 600;
-        transition: 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 18px rgba(13,110,253,0.55);
-    }
-
-    .btn-danger:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 14px rgba(255,0,0,0.45);
-    }
-
-</style>
-
+    
+    <script>
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+            mobileNav.classList.toggle('hidden');
+        }
+    </script>
 </head>
 
-<body>
+<body class="gradient-bg text-gray-100 min-h-screen flex flex-col font-sans">
 
 <!-- ================= HEADER ================= -->
-<header class="main-header fixed-top shadow-sm">
-    <div class="container d-flex justify-content-between align-items-center">
+<header class="sticky top-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+    <div class="container mx-auto px-4 py-5">
+        <div class="flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="{% url 'driver_list' %}" class="text-3xl font-black text-white tracking-wider hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <span class="drop-shadow-[0_0_20px_rgba(13,110,253,0.6)] hover:drop-shadow-[0_0_30px_rgba(13,110,253,0.8)]">
+                    🚖 TaxiPro
+                </span>
+            </a>
 
-        <!-- Logo -->
-        <div class="brand-logo">
-            🚖 TaxiPro
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="{% url 'driver_list' %}" 
+                   class="px-4 py-2 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300 font-medium">
+                    <i class="bi bi-house-door me-2"></i>Home
+                </a>
+                <a href="{% url 'driver_list' %}" 
+                   class="px-4 py-2 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300 font-medium">
+                    <i class="bi bi-people me-2"></i>Drivers
+                </a>
+                <a href="{% url 'ride_list' %}" 
+                   class="px-4 py-2 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300 font-medium">
+                    <i class="bi bi-car-front me-2"></i>Rides
+                </a>
+                <a href="{% url 'driver_create' %}" 
+                   class="px-4 py-2 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300 font-medium">
+                    <i class="bi bi-plus-circle me-2"></i>Add Driver
+                </a>
+            </nav>
+
+            <!-- Auth Buttons -->
+            <div class="hidden md:flex items-center gap-3">
+                {% if user.is_authenticated %}
+                    <span class="text-gray-400 text-sm">
+                        <i class="bi bi-person-circle me-2"></i>{{ user.username }}
+                    </span>
+                    <a href="{% url 'logout' %}" 
+                       class="px-6 py-2.5 rounded-full font-semibold text-sm border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(239,68,68,0.45)]">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" 
+                       class="px-6 py-2.5 rounded-full font-semibold text-sm border-2 border-white/30 text-white hover:bg-white/10 hover:border-white transition-all duration-300 hover:-translate-y-1">
+                        Login
+                    </a>
+                    <a href="{% url 'register' %}" 
+                       class="px-6 py-2.5 rounded-full font-semibold text-sm bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_8px_20px_rgba(13,110,253,0.45)]">
+                        Sign Up
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" 
+                    class="md:hidden bg-white/10 border border-white/20 text-white px-4 py-2 rounded-lg hover:bg-blue-500/20 hover:border-blue-500 transition-all duration-300">
+                <i class="bi bi-list text-2xl"></i>
+            </button>
         </div>
 
-        <!-- Navigation -->
-        <nav class="d-none d-md-flex gap-4">
-            <a href="/">Home</a>
-            <a href="/drivers/">Drivers</a>
-            <a href="/rides/">Rides</a>
-            <a href="/drivers/create/">Add Driver</a>
-        </nav>
-
-        <!-- Auth Buttons -->
-        <div class="d-flex align-items-center gap-3">
-            <a href="{% url 'login' %}" class="btn btn-outline-light btn-auth">Login</a>
-            <a href="{% url 'register' %}" class="btn btn-primary btn-auth">Sign Up</a>
+        <!-- Mobile Navigation -->
+        <div id="mobileNav" class="hidden md:hidden mt-4 bg-black/98 backdrop-blur-xl rounded-2xl border border-white/10 p-4">
+            <div class="flex flex-col gap-2">
+                <a href="{% url 'driver_list' %}" 
+                   class="px-4 py-3 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300">
+                    <i class="bi bi-house-door me-3"></i>Home
+                </a>
+                <a href="{% url 'driver_list' %}" 
+                   class="px-4 py-3 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300">
+                    <i class="bi bi-people me-3"></i>Drivers
+                </a>
+                <a href="{% url 'ride_list' %}" 
+                   class="px-4 py-3 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300">
+                    <i class="bi bi-car-front me-3"></i>Rides
+                </a>
+                <a href="{% url 'driver_create' %}" 
+                   class="px-4 py-3 rounded-lg text-gray-300 hover:text-blue-500 hover:bg-blue-500/10 transition-all duration-300">
+                    <i class="bi bi-plus-circle me-3"></i>Add Driver
+                </a>
+                
+                <div class="border-t border-white/10 mt-3 pt-3">
+                    {% if user.is_authenticated %}
+                        <div class="px-4 py-2 text-gray-400 text-sm mb-2">
+                            <i class="bi bi-person-circle me-2"></i>{{ user.username }}
+                        </div>
+                        <a href="{% url 'logout' %}" 
+                           class="block px-4 py-3 rounded-lg text-red-500 hover:bg-red-500/10 transition-all duration-300 text-center font-semibold">
+                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" 
+                           class="block px-4 py-3 rounded-lg text-gray-300 hover:bg-white/10 transition-all duration-300 text-center mb-2">
+                            Login
+                        </a>
+                        <a href="{% url 'register' %}" 
+                           class="block px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white transition-all duration-300 text-center font-semibold">
+                            Sign Up
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-
     </div>
 </header>
 <!-- ================= END HEADER ================= -->
 
-<div style="height:80px"></div>
+<!-- Spacer for fixed header -->
+<div class="h-6"></div>
 
 <!-- MAIN CONTENT -->
-{% block main %}
-{% endblock %}
-
+<main class="flex-grow">
+    {% block main %}
+    {% endblock %}
+</main>
 
 <!-- ================= FOOTER ================= -->
-<footer class="main-footer">
-    <div class="container">
-        <div class="row">
-
-            <!-- About -->
-            <div class="col-md-4">
-                <h5>TaxiPro</h5>
-                <p>Your premium taxi service. Fast, safe and comfortable rides 24/7.</p>
-                <div class="social-icons mt-3">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-twitter"></i></a>
+<footer class="bg-gradient-to-b from-zinc-950 to-black border-t border-white/5 mt-auto">
+    <div class="container mx-auto px-4 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <!-- About Section -->
+            <div class="space-y-6">
+                <h5 class="text-2xl font-bold text-white relative pb-4">
+                    TaxiPro
+                    <span class="absolute left-0 bottom-0 w-12 h-1 bg-gradient-to-r from-blue-600 to-transparent rounded"></span>
+                </h5>
+                <p class="text-gray-400 leading-relaxed">
+                    Your premium taxi service. Fast, safe and comfortable rides 24/7.
+                </p>
+                <div class="flex gap-4 mt-6">
+                    <a href="#" class="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 hover:border-blue-500 hover:scale-110 transition-all duration-300">
+                        <i class="bi bi-facebook text-lg"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 hover:border-blue-500 hover:scale-110 transition-all duration-300">
+                        <i class="bi bi-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 hover:border-blue-500 hover:scale-110 transition-all duration-300">
+                        <i class="bi bi-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 hover:border-blue-500 hover:scale-110 transition-all duration-300">
+                        <i class="bi bi-linkedin text-lg"></i>
+                    </a>
                 </div>
             </div>
 
-            <!-- Navigation -->
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <a href="/">Home</a>
-                <a href="/drivers/">Drivers</a>
-                <a href="/rides/">Rides</a>
-                <a href="/pricing/">Pricing</a>
-                <a href="/support/">Support</a>
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h5 class="text-2xl font-bold text-white relative pb-4">
+                    Quick Links
+                    <span class="absolute left-0 bottom-0 w-12 h-1 bg-gradient-to-r from-blue-600 to-transparent rounded"></span>
+                </h5>
+                <div class="flex flex-col gap-3">
+                    <a href="{% url 'driver_list' %}" class="text-gray-400 hover:text-blue-500 hover:translate-x-2 transition-all duration-300">
+                        <i class="bi bi-chevron-right me-2"></i>Home
+                    </a>
+                    <a href="{% url 'driver_list' %}" class="text-gray-400 hover:text-blue-500 hover:translate-x-2 transition-all duration-300">
+                        <i class="bi bi-chevron-right me-2"></i>Drivers
+                    </a>
+                    <a href="{% url 'ride_list' %}" class="text-gray-400 hover:text-blue-500 hover:translate-x-2 transition-all duration-300">
+                        <i class="bi bi-chevron-right me-2"></i>Rides
+                    </a>
+                    <a href="{% url 'driver_create' %}" class="text-gray-400 hover:text-blue-500 hover:translate-x-2 transition-all duration-300">
+                        <i class="bi bi-chevron-right me-2"></i>Add Driver
+                    </a>
+                    <a href="{% url 'ride_create' %}" class="text-gray-400 hover:text-blue-500 hover:translate-x-2 transition-all duration-300">
+                        <i class="bi bi-chevron-right me-2"></i>Book a Ride
+                    </a>
+                </div>
             </div>
 
-            <!-- Contacts -->
-            <div class="col-md-4">
-                <h5>Contacts</h5>
-                <p><i class="bi bi-telephone"></i> +1 800 123 45 67</p>
-                <p><i class="bi bi-envelope"></i> support@taxipro.com</p>
-                <p><i class="bi bi-geo-alt"></i> New York, USA</p>
+            <!-- Contact Info -->
+            <div class="space-y-6">
+                <h5 class="text-2xl font-bold text-white relative pb-4">
+                    Contact Us
+                    <span class="absolute left-0 bottom-0 w-12 h-1 bg-gradient-to-r from-blue-600 to-transparent rounded"></span>
+                </h5>
+                <div class="space-y-4">
+                    <p class="text-gray-400 flex items-center gap-3">
+                        <i class="bi bi-telephone text-blue-500 text-xl"></i>
+                        <span>+1 800 123 45 67</span>
+                    </p>
+                    <p class="text-gray-400 flex items-center gap-3">
+                        <i class="bi bi-envelope text-blue-500 text-xl"></i>
+                        <span>support@taxipro.com</span>
+                    </p>
+                    <p class="text-gray-400 flex items-center gap-3">
+                        <i class="bi bi-geo-alt text-blue-500 text-xl"></i>
+                        <span>New York, USA</span>
+                    </p>
+                </div>
             </div>
 
         </div>
 
-        <div class="footer-bottom">© 2025 TaxiPro. All rights reserved.</div>
+        <!-- Footer Bottom -->
+        <div class="border-t border-white/5 mt-12 pt-8 text-center">
+            <p class="text-gray-500 text-sm">
+                © 2025 TaxiPro. All rights reserved. | Designed with 
+                <i class="bi bi-heart-fill text-red-500 mx-1"></i> 
+                for better rides
+            </p>
+        </div>
     </div>
 </footer>
+<!-- ================= END FOOTER ================= -->
 
 </body>
 </html>
-

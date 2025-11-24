@@ -27,22 +27,27 @@ def register_view(request):
 
 def login_view(request):
     if request.method == "GET":
-        return render(request,'login.html')
+        return render(request, 'login.html')
+    
     elif request.method == "POST":
-        username = request.POST.get('username',None)
-        password = request.POST.get('password',None)
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
 
         if not username or not password:
-            return render(request,'register.html',context={'username':username,'error':'All fields are required!'})
+            return render(request, 'login.html', context={
+                'username': username,
+                'error': 'All fields are required!'
+            })
         
-        user = authenticate(username=username,password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user:
-            login(user=user)
-            return redirect("/")
-        return render(request,'login.html',context={
-                    'username':username,
-                    'error': "Such user does not exist!"
+            login(request, user)
+            return redirect("driver_list")
+
+        return render(request, 'login.html', context={
+            'username': username,
+            'error': "Such user does not exist!"
         })
     
 
