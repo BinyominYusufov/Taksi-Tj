@@ -2,182 +2,109 @@
 {% block title %}
 Create Driver - TaxiPro
 {% endblock title %}
+
 {% block main %}
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 col-xl-6">
-            
-            <!-- Glass Card Container -->
-            <div class="glass p-5 animate__animated animate__fadeInUp">
-                
-                <!-- Header Section -->
-                <div class="text-center mb-5">
-                    <div class="d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 80px; height: 80px; background: linear-gradient(135deg, #0d6efd, #1a75ff); border-radius: 20px; box-shadow: 0 8px 20px rgba(13,110,253,0.35);">
-                        <i class="bi bi-person-plus-fill" style="font-size: 36px; color: white;"></i>
-                    </div>
-                    <h1 class="display-5 fw-bold text-white mb-2">Create New Driver</h1>
-                    <p class="text-white-50 mb-0">Add a new driver to your fleet</p>
+<div class="container mx-auto py-10 px-4">
+    <div class="max-w-lg mx-auto">
+
+        <!-- Glass Card Container -->
+        <div class="bg-black/50 backdrop-blur-xl rounded-2xl p-8 shadow-2xl animate-fadeInUp">
+
+            <!-- Header Section -->
+            <div class="text-center mb-6">
+                <div class="mx-auto flex items-center justify-center mb-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 shadow-lg">
+                    <i class="bi bi-person-plus-fill text-white text-3xl"></i>
                 </div>
-
-                <!-- Form -->
-                <form method="POST">
-                    {% csrf_token %}
-                    
-                    <!-- Full Name -->
-                    <div class="mb-4">
-                        <label for="name" class="form-label fw-semibold text-white-50 small mb-2">
-                            <i class="bi bi-person me-2"></i>Full Name
-                        </label>
-                        <input type="text" 
-                               id="name" 
-                               name="name" 
-                               class="form-control form-control-lg" 
-                               placeholder="John Doe"
-                               required>
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="mb-4">
-                        <label for="phone_number" class="form-label fw-semibold text-white-50 small mb-2">
-                            <i class="bi bi-telephone me-2"></i>Phone Number
-                        </label>
-                        <input type="text" 
-                               id="phone_number" 
-                               name="phone_number" 
-                               class="form-control form-control-lg" 
-                               placeholder="+1 234 567 8900"
-                               required>
-                    </div>
-
-                    <!-- Car Details Row -->
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label for="car_model" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-car-front me-2"></i>Car Model
-                            </label>
-                            <input type="text" 
-                                   id="car_model" 
-                                   name="car_model" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="Tesla Model 3"
-                                   required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="car_number" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-hash me-2"></i>Car Number
-                            </label>
-                            <input type="text" 
-                                   id="car_number" 
-                                   name="car_number" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="ABC-1234"
-                                   required>
-                        </div>
-                    </div>
-
-                    <!-- Rating & Status Row -->
-                    <div class="row g-3 mb-5">
-                        <div class="col-md-6">
-                            <label for="rating" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-star me-2"></i>Rating
-                            </label>
-                            <input type="number" 
-                                   step="0.1" 
-                                   id="rating" 
-                                   name="rating" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="4.5" 
-                                   min="0" 
-                                   max="5"
-                                   required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="status" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-toggle-on me-2"></i>Status
-                            </label>
-                            <select id="status" 
-                                    name="status" 
-                                    class="form-select form-select-lg"
-                                    required>
-                                <option value="true">🟢 Online</option>
-                                <option value="false">⚫ Offline</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-flex gap-3">
-                        <button type="submit" class="btn btn-primary btn-lg flex-fill py-3 fw-semibold">
-                            <i class="bi bi-check-circle me-2"></i>Create Driver
-                        </button>
-                        <a href="{% url 'driver_list' %}" class="btn btn-outline-light btn-lg px-4 py-3">
-                            <i class="bi bi-x-circle"></i>
-                        </a>
-                    </div>
-                </form>
-
+                <h1 class="text-3xl font-bold text-white mb-2">Create New Driver</h1>
+                <p class="text-gray-400">Add a new driver to your fleet</p>
             </div>
 
+            <!-- Form -->
+            <form method="POST" class="space-y-5">
+                {% csrf_token %}
+
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-gray-300 mb-1">
+                        <i class="bi bi-person me-1"></i>Full Name
+                    </label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                    <label for="phone_number" class="block text-sm font-semibold text-gray-300 mb-1">
+                        <i class="bi bi-telephone me-1"></i>Phone Number
+                    </label>
+                    <input type="text" id="phone_number" name="phone_number" placeholder="+1 234 567 8900" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Car Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="car_model" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-car-front me-1"></i>Car Model
+                        </label>
+                        <input type="text" id="car_model" name="car_model" placeholder="Tesla Model 3" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="car_number" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-hash me-1"></i>Car Number
+                        </label>
+                        <input type="text" id="car_number" name="car_number" placeholder="ABC-1234" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Rating & Status -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="rating" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-star me-1"></i>Rating
+                        </label>
+                        <input type="number" step="0.1" min="0" max="5" id="rating" name="rating" placeholder="4.5" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-toggle-on me-1"></i>Status
+                        </label>
+                        <select id="status" name="status" required
+                                class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="true">🟢 Online</option>
+                            <option value="false">⚫ Offline</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="bi bi-check-circle"></i>Create Driver
+                    </button>
+                    <a href="{% url 'driver_list' %}" class="flex-1 border border-white/20 text-white hover:bg-white/10 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                        <i class="bi bi-x-circle"></i>Cancel
+                    </a>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Tailwind Animation -->
 <style>
-    /* Form Select Enhancement */
-    .form-select {
-        background: rgba(255,255,255,0.06);
-        color: #fff;
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 12px;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-
-    .form-select:focus {
-        background: rgba(255,255,255,0.12);
-        box-shadow: 0 0 10px rgba(13,110,253,0.5);
-        border-color: #0d6efd;
-        color: #fff;
-    }
-
-    .form-select option {
-        background: #1a1a1a;
-        color: #fff;
-    }
-
-    /* Input Placeholder */
-    .form-control::placeholder,
-    .form-select::placeholder {
-        color: rgba(255,255,255,0.3);
-    }
-
-    /* Cancel Button Hover */
-    .btn-outline-light:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 14px rgba(255,255,255,0.3);
-    }
-
-    /* Animation */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .animate__animated {
-        animation-duration: 0.6s;
-    }
-
-    .animate__fadeInUp {
-        animation-name: fadeInUp;
-    }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
 </style>
 
 {% endblock main %}
