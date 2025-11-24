@@ -1,35 +1,39 @@
 {% extends "base.html" %}
-{% block title %}
-Driver Details
-{% endblock title %}
+{% block title %}Driver Details{% endblock title %}
+
 {% block main %}
-<div class="container mt-5">
-    <div class="card shadow-sm border-0 rounded-4 p-4">
-        <div class="d-flex align-items-center mb-4">
-            <div class="driver-avatar bg-secondary bg-opacity-25 rounded-circle me-3 d-flex justify-content-center align-items-center"
-                 style="width:80px; height:80px; font-size:32px; font-weight:600;">
-                 {{ driver.name|first }}
+<div class="container mx-auto py-10 px-4">
+    <div class="max-w-3xl mx-auto bg-gray-900 bg-opacity-70 backdrop-blur-md rounded-2xl shadow-lg p-8 animate__animated animate__fadeInUp">
+
+        <!-- Avatar + Name -->
+        <div class="flex items-center mb-6">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white"
+                 style="background: linear-gradient(135deg, #4f8bfd, #3e61f0);">
+                {{ driver.name|first }}
             </div>
-            <div>
-                <h2 class="fw-bold mb-0">{{ driver.name }}</h2>
-                <small class="text-muted">{{ driver.car_model }}</small>
+            <div class="ml-4">
+                <h2 class="text-2xl font-bold text-white">{{ driver.name }}</h2>
+                <p class="text-gray-400">{{ driver.car_model }}</p>
             </div>
         </div>
-        <ul class="list-unstyled mb-4">
-            <li><strong>📞 Phone:</strong> {{ driver.phone_number }}</li>
-            <li><strong>🚘 Car Number:</strong> {{ driver.car_number }}</li>
-            <li><strong>⭐ Rating:</strong> {{ driver.rating }}</li>
+
+        <!-- Driver Info -->
+        <ul class="text-gray-200 mb-6 space-y-2">
+            <li>📞 <strong>Phone:</strong> {{ driver.phone_number }}</li>
+            <li>🚘 <strong>Car Number:</strong> {{ driver.car_number }}</li>
+            <li>⭐ <strong>Rating:</strong> {{ driver.rating }}</li>
             <li>
-                <strong>🟢 Status:</strong>
+                🟢 <strong>Status:</strong>
                 {% if driver.status %}
-                    <span class="badge bg-success">Online</span>
+                    <span class="px-2 py-1 bg-green-500 text-white rounded-full text-xs">Online</span>
                 {% else %}
-                    <span class="badge bg-secondary">Offline</span>
+                    <span class="px-2 py-1 bg-gray-500 text-white rounded-full text-xs">Offline</span>
                 {% endif %}
             </li>
-            <li><strong>📅 Joined:</strong> {{ driver.created_at }}</li>
-            <li><strong>📝 Reviews:</strong>
-                <ul>
+            <li>📅 <strong>Joined:</strong> {{ driver.created_at }}</li>
+            <li>
+                📝 <strong>Reviews:</strong>
+                <ul class="list-disc list-inside text-gray-300 mt-1">
                     {% for review in driver.reviews.all %}
                         <li>"{{ review.comment }}" - {{ review.rating }}⭐</li>
                     {% empty %}
@@ -38,9 +42,23 @@ Driver Details
                 </ul>
             </li>
         </ul>
-        <a href="{% url 'driver_list'%}" class="btn btn-primary w-100 rounded-3">
-            Back
+
+        <!-- Back Button -->
+        <a href="{% url 'driver_list' %}" 
+           class="block bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg font-semibold transition-colors duration-300">
+           Back
         </a>
+
     </div>
 </div>
+
+<style>
+/* Animation */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate__animated { animation-duration: 0.6s; }
+.animate__fadeInUp { animation-name: fadeInUp; }
+</style>
 {% endblock main %}
