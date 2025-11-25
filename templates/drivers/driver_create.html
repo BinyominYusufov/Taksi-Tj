@@ -1,85 +1,61 @@
 {% extends "base.html" %}
-{% block title %}
-Create Driver - TaxiPro
-{% endblock title %}
-
 {% block main %}
 
 <div class="container mx-auto py-10 px-4">
-    <div class="max-w-lg mx-auto">
+    <div class="max-w-lg mx-auto bg-black/50 backdrop-blur-xl rounded-2xl p-8 shadow-2xl animate-fadeInUp">
 
-        <!-- Glass Card Container -->
-        <div class="bg-black/50 backdrop-blur-xl rounded-2xl p-8 shadow-2xl animate-fadeInUp">
+        <h1 class="text-3xl font-bold text-white mb-6 text-center">Create New Driver</h1>
 
-            <!-- Header Section -->
-            <div class="text-center mb-6">
-                <div class="mx-auto flex items-center justify-center mb-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 shadow-lg">
-                    <i class="bi bi-person-plus-fill text-white text-3xl"></i>
-                </div>
-                <h1 class="text-3xl font-bold text-white mb-2">Create New Driver</h1>
-                <p class="text-gray-400">Add a new driver to your fleet</p>
+        <form method="POST" enctype="multipart/form-data" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Image Upload -->
+            <div>
+                <label class="block text-gray-300 mb-2">Driver Image</label>
+                <input type="file" name="image" class="w-full text-gray-200 bg-white/10 rounded-xl p-2">
             </div>
 
-            <!-- Form -->
-            <form method="POST" class="space-y-5">
-                {% csrf_token %}
+            <div>
+                <label class="block text-gray-300 mb-1">Full Name</label>
+                <input type="text" name="name" required
+                       class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+            </div>
 
-                <!-- Full Name -->
+            <div>
+                <label class="block text-gray-300 mb-1">Phone Number</label>
+                <input type="text" name="phone_number" required
+                       class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="name" class="block text-sm font-semibold text-gray-300 mb-1">
-                        <i class="bi bi-person me-1"></i>Full Name
-                    </label>
-                    <input type="text" id="name" name="name" placeholder="John Doe" required
-                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-gray-300 mb-1">Car Model</label>
+                    <input type="text" name="car_model" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
                 </div>
-
-                <!-- Phone Number -->
                 <div>
-                    <label for="phone_number" class="block text-sm font-semibold text-gray-300 mb-1">
-                        <i class="bi bi-telephone me-1"></i>Phone Number
-                    </label>
-                    <input type="text" id="phone_number" name="phone_number" placeholder="+1 234 567 8900" required
-                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <label class="block text-gray-300 mb-1">Car Number</label>
+                    <input type="text" name="car_number" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
                 </div>
+            </div>
 
-                <!-- Car Details -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="car_model" class="block text-sm font-semibold text-gray-300 mb-1">
-                            <i class="bi bi-car-front me-1"></i>Car Model
-                        </label>
-                        <input type="text" id="car_model" name="car_model" placeholder="Tesla Model 3" required
-                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label for="car_number" class="block text-sm font-semibold text-gray-300 mb-1">
-                            <i class="bi bi-hash me-1"></i>Car Number
-                        </label>
-                        <input type="text" id="car_number" name="car_number" placeholder="ABC-1234" required
-                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300 mb-1">Rating</label>
+                    <input type="number" name="rating" step="0.1" min="0" max="5" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
                 </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Status</label>
+                    <select name="status" required
+                            class="w-full p-3 rounded-xl bg-white/10 text-white focus:ring-2 focus:ring-blue-500">
+                        <option value="true">🟢 Online</option>
+                        <option value="false">⚫ Offline</option>
+                    </select>
+                </div>
+            </div>
 
-                <!-- Rating & Status -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="rating" class="block text-sm font-semibold text-gray-300 mb-1">
-                            <i class="bi bi-star me-1"></i>Rating
-                        </label>
-                        <input type="number" step="0.1" min="0" max="5" id="rating" name="rating" placeholder="4.5" required
-                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label for="status" class="block text-sm font-semibold text-gray-300 mb-1">
-                            <i class="bi bi-toggle-on me-1"></i>Status
-                        </label>
-                        <select id="status" name="status" required
-                                class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                            <option value="true">🟢 Online</option>
-                            <option value="false">⚫ Offline</option>
-                        </select>
-                    </div>
-                </div>
 
 
                 <div class="flex flex-col md:flex-row gap-4">
@@ -91,10 +67,19 @@ Create Driver - TaxiPro
                     </a>
                 </div>
 
-            </form>
-        </div>
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all">
+                    Create Driver
+                </button>
+                <a href="{% url 'driver_list' %}" class="flex-1 border border-white/20 text-white py-3 rounded-xl text-center hover:bg-white/10 transition-all">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
     </div>
 </div>
+
 
 
 <style>

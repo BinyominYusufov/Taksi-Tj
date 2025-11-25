@@ -1,38 +1,49 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Rides
 
 
+def is_authenticated(request):
+    return request.user.is_authenticated
+
+
 def ride_list(request):
     rides = Rides.objects.all()
+
+   
+    start = request.GET.get('start_location')
+    end = request.GET.get('end_location')
+    status = request.GET.get('status')
+
+    if start:
+        rides = rides.filter(start_location__icontains=start)
+    if end:
+        rides = rides.filter(end_location__icontains=end)
+    if status in ['pending', 'completed', 'canceled']:
+        rides = rides.filter(status=status)
+
     return render(request, "rides/rides_list.html", {"rides": rides})
 
 
 def ride_create(request):
+    if not is_authenticated(request):
+        return render(request, 'rides/message.html', {
+            'message': "🚫 You must log in to create a ride."
+        })
+
     if request.method == "GET":
         return render(request, "rides/ride_create.html")
 
     elif request.method == "POST":
-        user_id = request.POST.get("user_id")
-        driver_id = request.POST.get("driver_id")
-        start_location = request.POST.get("start_location")
-        end_location = request.POST.get("end_location")
-        distance_km = request.POST.get("distance_km")
-        price = request.POST.get("price")
-        status = request.POST.get("status")
-
         ride = Rides.objects.create(
-            user_id=user_id,
-            driver_id=driver_id,
-            start_location=start_location,
-            end_location=end_location,
-            distance_km=distance_km,
-            price=price,
-            status=status
+            user_id=request.POST.get("user_id"),
+            driver_id=request.POST.get("driver_id"),
+            start_location=request.POST.get("start_location"),
+            end_location=request.POST.get("end_location"),
+            distance_km=request.POST.get("distance_km"),
+            price=request.POST.get("price"),
+            status=request.POST.get("status")
         )
-
         return redirect("ride_detail", ride_id=ride.id)
 
 
@@ -45,6 +56,11 @@ def ride_detail(request, ride_id):
 
 
 def ride_update(request, ride_id):
+    if not is_authenticated(request):
+        return render(request, 'rides/message.html', {
+            'message': "🚫 You must log in to edit a ride."
+        })
+
     ride = Rides.objects.filter(id=ride_id).first()
     if not ride:
         return HttpResponse("Ride not found")
@@ -66,6 +82,11 @@ def ride_update(request, ride_id):
 
 
 def ride_delete(request, ride_id):
+    if not is_authenticated(request):
+        return render(request, 'rides/message.html', {
+            'message': "🚫 You must log in to delete a ride."
+        })
+
     ride = Rides.objects.filter(id=ride_id).first()
     if not ride:
         return HttpResponse(f"Ride with id {ride_id} not found")
@@ -76,4 +97,3 @@ def ride_delete(request, ride_id):
     elif request.method == "POST":
         ride.delete()
         return redirect("ride_list")
-
