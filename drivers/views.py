@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Drivers
 
-# ===================== Проверка авторизации =====================
+
 def is_authenticated(request):
     return request.user.is_authenticated
 
-# ===================== Список водителей с фильтрацией =====================
+
 def driver_list(request):
     drivers = Drivers.objects.all()
 
-    # фильтры через GET-параметры
+    
     name = request.GET.get('name')
     min_rating = request.GET.get('min_rating')
     status = request.GET.get('status')
@@ -27,17 +27,16 @@ def driver_list(request):
 
     return render(request, 'drivers/drivers_list.html', {'drivers': drivers})
 
-# ===================== Создание водителя =====================
+
 def driver_create(request):
     if not is_authenticated(request):
         return render(request, 'drivers/message.html', {
             'message': "🚫 You must log in to edit a driver."
-    })
+        })
 
-    if request.method == 'GET':
-        return render(request, 'drivers/driver_create.html')
-    elif request.method == 'POST':
+    if request.method == 'POST':
         driver = Drivers.objects.create(
+            image=request.FILES.get('image'),
             name=request.POST.get('name'),
             phone_number=request.POST.get('phone_number'),
             car_model=request.POST.get('car_model'),
@@ -47,37 +46,42 @@ def driver_create(request):
         )
         return redirect('driver_detail', driver_id=driver.id)
 
-# ===================== Детали водителя =====================
+    return render(request, 'drivers/driver_create.html')
+
+
 def driver_detail(request, driver_id):
     driver = Drivers.objects.filter(id=driver_id).first()
     if not driver:
         return HttpResponse('Driver not found')
     return render(request, 'drivers/driver_detail.html', {'driver': driver})
 
-# ===================== Редактирование водителя =====================
+
 def driver_update(request, driver_id):
     if not is_authenticated(request):
         return render(request, 'drivers/message.html', {
             'message': "🚫 You must log in to edit a driver."
-    })
+        })
 
-    driver = Drivers.objects.filter(id=driver_id).first()
-    if not driver:
-        return HttpResponse('Driver not found')
+    driver = get_object_or_404(Drivers, id=driver_id)
 
-    if request.method == 'GET':
-        return render(request, 'drivers/driver_update.html', {'driver': driver})
-    elif request.method == 'POST':
+    if request.method == 'POST':
         driver.name = request.POST.get('name')
         driver.phone_number = request.POST.get('phone_number')
         driver.car_model = request.POST.get('car_model')
         driver.car_number = request.POST.get('car_number')
         driver.rating = request.POST.get('rating')
-        driver.status = request.POST.get('status') == 'on'
+        driver.status = request.POST.get('status') == 'true'
+
+
+        if request.FILES.get('image'):
+            driver.image = request.FILES['image']
+
         driver.save()
         return redirect('driver_detail', driver_id=driver.id)
 
-# ===================== Удаление водителя =====================
+    return render(request, 'drivers/driver_update.html', {'driver': driver})
+
+
 def driver_delete_view(request, driver_id):
     if not is_authenticated(request):
         return render(request, 'drivers/message.html', {

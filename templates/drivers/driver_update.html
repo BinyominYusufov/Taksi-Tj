@@ -1,187 +1,77 @@
 {% extends "base.html" %}
-{% block title %}
-Update Driver - TaxiPro
-{% endblock title %}
-
 {% block main %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7 col-xl-6">
 
-            <!-- Glass Card Container -->
-            <div class="glass p-5 animate__animated animate__fadeInUp">
+<div class="container mx-auto py-10 px-4">
+    <div class="max-w-lg mx-auto bg-black/50 backdrop-blur-xl rounded-2xl p-8 shadow-2xl animate-fadeInUp">
 
-                <!-- Header Section -->
-                <div class="text-center mb-5">
-                    <div class="d-inline-flex align-items-center justify-content-center mb-4" 
-                         style="width: 80px; height: 80px; background: linear-gradient(135deg, #0d6efd, #1a75ff); border-radius: 20px; box-shadow: 0 8px 20px rgba(13,110,253,0.35);">
-                        <i class="bi bi-pencil-square" style="font-size: 36px; color: white;"></i>
-                    </div>
-                    <h1 class="display-5 fw-bold text-white mb-2">Update Driver</h1>
-                    <p class="text-white-50 mb-0">Edit the details of your driver</p>
-                </div>
+        <h1 class="text-3xl font-bold text-white mb-6 text-center">Update Driver</h1>
 
-                <!-- Form -->
-                <form method="POST">
-                    {% csrf_token %}
+        <form method="POST" enctype="multipart/form-data" class="space-y-5">
+            {% csrf_token %}
 
-                    <!-- Full Name -->
-                    <div class="mb-4">
-                        <label for="name" class="form-label fw-semibold text-white-50 small mb-2">
-                            <i class="bi bi-person me-2"></i>Full Name
-                        </label>
-                        <input type="text" 
-                               id="name" 
-                               name="name" 
-                               class="form-control form-control-lg" 
-                               placeholder="John Doe"
-                               value="{{ driver.name }}"
-                               required>
-                    </div>
+            <!-- Current Image -->
+            {% if driver.image %}
+            <div class="mb-4">
+                <img src="{{ driver.image.url }}" alt="{{ driver.name }}" class="rounded-xl w-48 h-48 object-cover mx-auto">
+            </div>
+            {% endif %}
 
-                    <!-- Phone Number -->
-                    <div class="mb-4">
-                        <label for="phone_number" class="form-label fw-semibold text-white-50 small mb-2">
-                            <i class="bi bi-telephone me-2"></i>Phone Number
-                        </label>
-                        <input type="text" 
-                               id="phone_number" 
-                               name="phone_number" 
-                               class="form-control form-control-lg" 
-                               placeholder="+1 234 567 8900"
-                               value="{{ driver.phone_number }}"
-                               required>
-                    </div>
-
-                    <!-- Car Details Row -->
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6">
-                            <label for="car_model" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-car-front me-2"></i>Car Model
-                            </label>
-                            <input type="text" 
-                                   id="car_model" 
-                                   name="car_model" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="Tesla Model 3"
-                                   value="{{ driver.car_model }}"
-                                   required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="car_number" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-hash me-2"></i>Car Number
-                            </label>
-                            <input type="text" 
-                                   id="car_number" 
-                                   name="car_number" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="ABC-1234"
-                                   value="{{ driver.car_number }}"
-                                   required>
-                        </div>
-                    </div>
-
-                    <!-- Rating & Status Row -->
-                    <div class="row g-3 mb-5">
-                        <div class="col-md-6">
-                            <label for="rating" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-star me-2"></i>Rating
-                            </label>
-                            <input type="number" 
-                                   step="0.1" 
-                                   id="rating" 
-                                   name="rating" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="4.5" 
-                                   min="0" 
-                                   max="5"
-                                   value="{{ driver.rating }}"
-                                   required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="status" class="form-label fw-semibold text-white-50 small mb-2">
-                                <i class="bi bi-toggle-on me-2"></i>Status
-                            </label>
-                            <select id="status" 
-                                    name="status" 
-                                    class="form-select form-select-lg"
-                                    required>
-                                <option value="true" {% if driver.status %}selected{% endif %}>🟢 Online</option>
-                                <option value="false" {% if not driver.status %}selected{% endif %}>⚫ Offline</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-flex gap-3">
-                        <button type="submit" class="btn btn-primary btn-lg flex-fill py-3 fw-semibold">
-                            <i class="bi bi-check-circle me-2"></i>Update Driver
-                        </button>
-                        <a href="{% url 'driver_list' %}" class="btn btn-outline-light btn-lg px-4 py-3">
-                            <i class="bi bi-x-circle me-2"></i>Cancel
-                        </a>
-                    </div>
-                </form>
-
+            <div>
+                <label class="block text-gray-300 mb-1">Change Image</label>
+                <input type="file" name="image" class="w-full text-gray-200 bg-white/10 rounded-xl p-2">
             </div>
 
-        </div>
+            <div>
+                <label class="block text-gray-300 mb-1">Full Name</label>
+                <input type="text" name="name" value="{{ driver.name }}" required
+                       class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-gray-300 mb-1">Phone Number</label>
+                <input type="text" name="phone_number" value="{{ driver.phone_number }}" required
+                       class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300 mb-1">Car Model</label>
+                    <input type="text" name="car_model" value="{{ driver.car_model }}" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Car Number</label>
+                    <input type="text" name="car_number" value="{{ driver.car_number }}" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300 mb-1">Rating</label>
+                    <input type="number" name="rating" step="0.1" min="0" max="5" value="{{ driver.rating }}" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Status</label>
+                    <select name="status" required class="w-full p-3 rounded-xl bg-white/10 text-white focus:ring-2 focus:ring-blue-500">
+                        <option value="true" {% if driver.status %}selected{% endif %}>🟢 Online</option>
+                        <option value="false" {% if not driver.status %}selected{% endif %}>⚫ Offline</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-xl transition-all">
+                    Update Driver
+                </button>
+                <a href="{% url 'driver_detail' driver.id %}" class="flex-1 border border-white/20 text-white py-3 rounded-xl text-center hover:bg-white/10 transition-all">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
     </div>
 </div>
 
-<style>
-/* Form Select Enhancement */
-.form-select {
-    background: rgba(255,255,255,0.06);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.form-select:focus {
-    background: rgba(255,255,255,0.12);
-    box-shadow: 0 0 10px rgba(13,110,253,0.5);
-    border-color: #0d6efd;
-    color: #fff;
-}
-
-.form-select option {
-    background: #1a1a1a;
-    color: #fff;
-}
-
-/* Input Placeholder */
-.form-control::placeholder,
-.form-select::placeholder {
-    color: rgba(255,255,255,0.3);
-}
-
-/* Cancel Button Hover */
-.btn-outline-light:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 14px rgba(255,255,255,0.3);
-}
-
-/* Glass Card Animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate__animated {
-    animation-duration: 0.6s;
-}
-
-.animate__fadeInUp {
-    animation-name: fadeInUp;
-}
-</style>
 {% endblock main %}
