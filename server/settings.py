@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'drivers.apps.DriversConfig',
     'rides.apps.RidesConfig',
+    'home.apps.HomeConfig'
 ]
 
 MIDDLEWARE = [

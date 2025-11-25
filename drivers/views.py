@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Drivers
 
-
 def is_authenticated(request):
     return request.user.is_authenticated
 

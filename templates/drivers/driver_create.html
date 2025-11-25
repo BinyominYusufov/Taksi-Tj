@@ -56,6 +56,17 @@
                 </div>
             </div>
 
+
+
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="bi bi-check-circle"></i>Create Driver
+                    </button>
+                    <a href="{% url 'driver_list' %}" class="flex-1 border border-white/20 text-white hover:bg-white/10 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                        <i class="bi bi-x-circle"></i>Cancel
+                    </a>
+                </div>
+
             <div class="flex gap-4">
                 <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all">
                     Create Driver
@@ -68,6 +79,8 @@
 
     </div>
 </div>
+
+
 
 <style>
 @keyframes fadeInUp {
