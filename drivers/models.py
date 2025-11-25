@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Drivers(models.Model):
+    image = models.ImageField(upload_to='driver_images/', null=True, blank=True)
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15)
     car_model = models.CharField(max_length=100)
@@ -20,6 +21,7 @@ class Reviews(models.Model):
     created_at = models.DateTimeField(auto_now=True)
 
 class Profiles(models.Model):
+    image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     driver_id = models.IntegerField()
     bio = models.TextField()
     experience_years = models.IntegerField()

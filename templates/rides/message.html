@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Notice - TaxiPro{% endblock %}
+
+{% block main %}
+<div class="flex items-center justify-center min-h-screen px-4">
+    <div class="bg-red-600/20 backdrop-blur-md border border-red-500 rounded-2xl shadow-lg p-8 max-w-md text-center animate-fade-in">
+        <!-- Иконка предупреждения -->
+        <i class="bi bi-exclamation-triangle-fill text-red-500 text-4xl mb-4 inline-block"></i>
+        
+        <!-- Сообщение -->
+        <p class="text-white font-semibold text-lg">
+            {{ message }}
+        </p>
+        
+        <!-- Кнопки -->
+        <div class="mt-6 flex justify-center gap-4">
+            <a href="{% url 'login' %}" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                Login Now
+            </a>
+            <button onclick="history.back()" class="inline-block bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+}
+</style>
+{% endblock main %}
