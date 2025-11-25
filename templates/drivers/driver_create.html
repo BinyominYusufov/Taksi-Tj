@@ -1,27 +1,110 @@
 {% extends "base.html" %}
 {% block title %}
-Driver Create
+Create Driver - TaxiPro
 {% endblock title %}
+
 {% block main %}
 
-<h1>Create New Driver</h1>
-<form method="POST">
-    {% csrf_token %}
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" class="form-control mb-3">
-    <label for="phone_number">Phone Number:</label>
-    <input type="text" id="phone_number" name="phone_number" class="form-control mb-3">
-    <label for="car_model">Car Model:</label>
-    <input type="text" id="car_model" name="car_model" class="form-control mb-3">
-    <label for="car_number">Car Number:</label>
-    <input type="text" id="car_number" name="car_number" class="form-control mb-3">
-    <label for="rating">Rating:</label>
-    <input type="number" step="0.1" id="rating" name="rating" class="form-control mb-3">
-    <label for="status">Status:</label>
-    <select id="status" name="status" class="form-select mb-3">
-        <option value="true">Online</option>
-        <option value="false">Offline</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+<div class="container mx-auto py-10 px-4">
+    <div class="max-w-lg mx-auto">
+
+        <!-- Glass Card Container -->
+        <div class="bg-black/50 backdrop-blur-xl rounded-2xl p-8 shadow-2xl animate-fadeInUp">
+
+            <!-- Header Section -->
+            <div class="text-center mb-6">
+                <div class="mx-auto flex items-center justify-center mb-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 shadow-lg">
+                    <i class="bi bi-person-plus-fill text-white text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-2">Create New Driver</h1>
+                <p class="text-gray-400">Add a new driver to your fleet</p>
+            </div>
+
+            <!-- Form -->
+            <form method="POST" class="space-y-5">
+                {% csrf_token %}
+
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-gray-300 mb-1">
+                        <i class="bi bi-person me-1"></i>Full Name
+                    </label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                    <label for="phone_number" class="block text-sm font-semibold text-gray-300 mb-1">
+                        <i class="bi bi-telephone me-1"></i>Phone Number
+                    </label>
+                    <input type="text" id="phone_number" name="phone_number" placeholder="+1 234 567 8900" required
+                           class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Car Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="car_model" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-car-front me-1"></i>Car Model
+                        </label>
+                        <input type="text" id="car_model" name="car_model" placeholder="Tesla Model 3" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="car_number" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-hash me-1"></i>Car Number
+                        </label>
+                        <input type="text" id="car_number" name="car_number" placeholder="ABC-1234" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Rating & Status -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="rating" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-star me-1"></i>Rating
+                        </label>
+                        <input type="number" step="0.1" min="0" max="5" id="rating" name="rating" placeholder="4.5" required
+                               class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-semibold text-gray-300 mb-1">
+                            <i class="bi bi-toggle-on me-1"></i>Status
+                        </label>
+                        <select id="status" name="status" required
+                                class="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 focus:bg-white/20 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="true">🟢 Online</option>
+                            <option value="false">⚫ Offline</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="bi bi-check-circle"></i>Create Driver
+                    </button>
+                    <a href="{% url 'driver_list' %}" class="flex-1 border border-white/20 text-white hover:bg-white/10 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                        <i class="bi bi-x-circle"></i>Cancel
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Tailwind Animation -->
+<style>
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+</style>
+
 {% endblock main %}

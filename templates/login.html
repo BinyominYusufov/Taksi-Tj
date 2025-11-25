@@ -1,93 +1,132 @@
+
+<!-- ============== LOGIN PAGE ============== -->
 {% extends "base.html" %}
 
 {% block title %}
-Sign In
+Sign In - TaxiPro
 {% endblock title %}
 
 {% block main %}
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-
-        <div class="text-center">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Welcome Back</h2>
-            <p class="text-gray-600">Sign in to your account</p>
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full">
+        
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-500 rounded-2xl mb-6 shadow-lg shadow-blue-500/50">
+                <i class="bi bi-box-arrow-in-right text-4xl text-white"></i>
+            </div>
+            <h2 class="text-4xl font-extrabold text-white mb-2 drop-shadow-lg">Welcome Back</h2>
+            <p class="text-gray-400">Sign in to continue to TaxiPro</p>
         </div>
 
-
-        <div class="bg-white rounded-2xl shadow-2xl p-8 space-y-6">
-
+        <!-- Form Card -->
+        <div class="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 hover:border-blue-500/40 transition-all duration-300">
+            
+            <!-- Error Message -->
             {% if error %}
-                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
-                    <p class="text-red-700 font-medium">{{ error }}</p>
+                <div class="bg-red-500/10 border-l-4 border-red-500 p-4 rounded-lg backdrop-blur-sm mb-6 animate-shake">
+                    <p class="text-red-400 font-medium flex items-center">
+                        <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+                    </p>
                 </div>
             {% endif %}
 
             <form method="post" class="space-y-5">
                 {% csrf_token %}
     
+                <!-- Username -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-semibold text-gray-700">
-                        Username
+                    <label class="block text-sm font-semibold text-gray-300">
+                        <i class="bi bi-person me-2 text-blue-500"></i>Username
                     </label>
                     <input 
                         type="text" 
                         name="username" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200" 
+                        class="w-full px-4 py-3 bg-white/5 border-2 border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition duration-200" 
                         placeholder="Enter your username"
                         required
                     >
                 </div>
 
-
+                <!-- Password -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-semibold text-gray-700">
-                        Password
+                    <label class="block text-sm font-semibold text-gray-300">
+                        <i class="bi bi-lock me-2 text-blue-500"></i>Password
                     </label>
                     <input 
                         type="password" 
                         name="password" 
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200" 
+                        class="w-full px-4 py-3 bg-white/5 border-2 border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition duration-200" 
                         placeholder="Enter your password"
                         required
                     >
                 </div>
 
-
+                <!-- Remember Me & Forgot Password -->
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input 
                             type="checkbox" 
                             id="remember" 
-                            class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                            class="w-4 h-4 text-blue-600 bg-white/10 border-white/30 rounded focus:ring-blue-500 focus:ring-2"
                         >
-                        <label for="remember" class="ml-2 text-sm text-gray-700">
+                        <label for="remember" class="ml-2 text-sm text-gray-300">
                             Remember me
                         </label>
                     </div>
-                    <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition duration-200">
+                    <a href="#" class="text-sm font-medium text-blue-400 hover:text-blue-300 transition duration-200">
                         Forgot password?
                     </a>
                 </div>
 
-
+                <!-- Submit Button -->
                 <button 
                     type="submit" 
-                    class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold py-3 px-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 transform hover:scale-[1.02] transition duration-200 shadow-lg"
+                    class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold py-4 px-4 rounded-xl hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transform hover:scale-[1.02] hover:-translate-y-1 transition duration-200 shadow-lg shadow-blue-500/50 hover:shadow-xl hover:shadow-blue-500/60"
                 >
-                    Sign In
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
                 </button>
             </form>
 
-
-            <div class="text-center pt-4 border-t border-gray-200">
-                <p class="text-sm text-gray-600">
+            <!-- Register Link -->
+            <div class="text-center pt-6 mt-6 border-t border-white/10">
+                <p class="text-sm text-gray-400">
                     Don't have an account? 
-                    <a href="{% url 'register' %}" class="font-semibold text-indigo-600 hover:text-indigo-800 transition duration-200">
-                        Register now
+                    <a href="{% url 'register' %}" class="font-semibold text-blue-400 hover:text-blue-300 transition duration-200">
+                        Register now <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </p>
             </div>
         </div>
+
+        <!-- Additional Info -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-500 text-sm">
+                <i class="bi bi-shield-check me-2"></i>
+                Your data is secure and encrypted
+            </p>
+        </div>
     </div>
 </div>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .animate-fade-in {
+        animation: fade-in 0.6s ease-out;
+    }
+    
+    .animate-shake {
+        animation: shake 0.4s ease-in-out;
+    }
+</style>
 {% endblock main %}
