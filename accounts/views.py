@@ -51,9 +51,6 @@ def login_view(request):
         })
     
 
-def logout_view(request):
-    try:
-        logout(request)
-        return redirect("login")
-    except Exception as err:
-        return HttpResponse(str(err))
+
+def logout_confirm(request):
+    return render(request, "logout_confirm.html")
